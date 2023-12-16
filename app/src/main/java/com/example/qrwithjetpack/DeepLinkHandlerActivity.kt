@@ -13,7 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.qrwithjetpack.ui.theme.ManageProductsTheme
+import com.example.qrwithjetpack.ui.theme.QrAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.gotrue.handleDeeplinks
@@ -45,7 +45,7 @@ class DeepLinkHandlerActivity : ComponentActivity() {
                     createdAtState.value = created
                 }
             }
-            ManageProductsTheme {
+            QrAppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background

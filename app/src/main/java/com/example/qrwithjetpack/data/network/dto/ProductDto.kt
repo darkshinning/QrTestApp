@@ -2,7 +2,6 @@ package com.example.qrwithjetpack.data.network.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 
 @Serializable
 data class ProductDto(

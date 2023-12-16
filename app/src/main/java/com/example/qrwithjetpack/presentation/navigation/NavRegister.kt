@@ -1,43 +1,21 @@
 package com.example.qrwithjetpack.presentation.navigation
 
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.example.qrwithjetpack.util.Util
-import com.example.qrwithjetpack.presentation.feature.addproduct.AddProductScreen
 import com.example.qrwithjetpack.presentation.feature.cameraPreview.CameraScreen
+import com.example.qrwithjetpack.presentation.feature.loginMenu.LoginMenuScreen
 import com.example.qrwithjetpack.presentation.feature.mainMenu.MainMenu
 import com.example.qrwithjetpack.presentation.feature.photoFromQr.PhotoFromQrScreen
 import com.example.qrwithjetpack.presentation.feature.photoPreview.PhotoPreviewScreen
 import com.example.qrwithjetpack.presentation.feature.qrCameraPreview.QrCameraPreview
 import com.example.qrwithjetpack.presentation.feature.qrPreview.QrPreviewScreen
+import com.example.qrwithjetpack.presentation.feature.registration.RegistrationScreen
+import com.example.qrwithjetpack.util.Util
 
 
 fun NavGraphBuilder.navRegistration(navController: NavController) {
-//    composable(ProductListDestination.route) {
-//        ProductListScreen(
-//            navController = navController
-//        )
-//    }
-//
-//    composable(AuthenticationDestination.route) {
-//        SignInScreen(
-//            navController = navController
-//        )
-//    }
-//
-//    composable(SignUpDestination.route) {
-//        SignUpScreen(
-//            navController = navController
-//        )
-//    }
 
-    composable(AddProductDestination.route) {
-        AddProductScreen(
-            navController = navController
-        )
-    }
 
     composable(Util.CAMERA_ROUTE) {
         CameraScreen(
@@ -59,6 +37,18 @@ fun NavGraphBuilder.navRegistration(navController: NavController) {
 
     composable(Util.QR_ROUTE) {
         QrCameraPreview(
+            navController = navController
+        )
+    }
+
+    composable(Util.REGISTRATION_ROUTE) {
+        RegistrationScreen(
+            navController = navController
+        )
+    }
+
+    composable(Util.FIRSTLOGIN_ROUTE) {
+        LoginMenuScreen(
             navController = navController
         )
     }

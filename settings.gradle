@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         maven { url = uri("https://www.jitpack.io" ) }
     }
 }
-rootProject.name = "ManageProducts"
+rootProject.name = "QrApp"
 include ':app'

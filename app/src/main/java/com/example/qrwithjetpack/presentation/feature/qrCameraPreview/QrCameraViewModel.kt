@@ -1,26 +1,19 @@
 package com.example.qrwithjetpack.presentation.feature.qrCameraPreview
 
-import android.graphics.BitmapFactory
-import android.util.Log
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.qrwithjetpack.domain.usecase.GetProductDetailsUseCase
+import com.example.qrwithjetpack.domain.usecase.GetQrDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.util.Base64
 import javax.inject.Inject
 
 @HiltViewModel
 class QrCameraViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val getProductDetailsUseCase: GetProductDetailsUseCase
+    private val getProductDetailsUseCase: GetQrDetailsUseCase
 ) : ViewModel()  {
 
 //    lateinit var qrString: String
@@ -37,17 +30,17 @@ class QrCameraViewModel @Inject constructor(
     private fun getQrFromDatabase(qrId: String) {
         viewModelScope.launch {
             val result = getProductDetailsUseCase.execute(
-                GetProductDetailsUseCase.Input(
+                GetQrDetailsUseCase.Input(
                     id = qrId
                 )
             )
             when (result) {
-                is GetProductDetailsUseCase.Output.Success -> {
+                is GetQrDetailsUseCase.Output.Success -> {
                     _qr.emit(result.data.qr)
 //                    Log.e("ERROR", _qr.toString())
 //                    qrString = result.data.qr
                 }
-                is GetProductDetailsUseCase.Output.Failure -> {
+                is GetQrDetailsUseCase.Output.Failure -> {
 
                 }
             }

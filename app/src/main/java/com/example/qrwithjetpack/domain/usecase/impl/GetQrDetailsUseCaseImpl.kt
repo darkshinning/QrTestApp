@@ -1,20 +1,17 @@
 package com.example.qrwithjetpack.domain.usecase.impl
 
-import com.example.qrwithjetpack.data.network.dto.ProductDto
 import com.example.qrwithjetpack.data.repository.ProductRepository
 import com.example.qrwithjetpack.domain.model.Product
-import com.example.qrwithjetpack.domain.usecase.GetProductDetailsUseCase
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
+import com.example.qrwithjetpack.domain.usecase.GetQrDetailsUseCase
 import javax.inject.Inject
 
-class GetProductDetailsUseCaseImpl @Inject constructor(
+class GetQrDetailsUseCaseImpl @Inject constructor(
     private val productRepository: ProductRepository,
-) : GetProductDetailsUseCase {
-    override suspend fun execute(input: GetProductDetailsUseCase.Input): GetProductDetailsUseCase.Output {
+) : GetQrDetailsUseCase {
+    override suspend fun execute(input: GetQrDetailsUseCase.Input): GetQrDetailsUseCase.Output {
         val result = productRepository.getProduct(input.id)
 
-        return GetProductDetailsUseCase.Output.Success(
+        return GetQrDetailsUseCase.Output.Success(
             data = Product(
                 user = result.user,
                 qr = result.qr,

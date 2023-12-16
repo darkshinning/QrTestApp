@@ -6,7 +6,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.jan.supabase.SupabaseClient
-import io.github.jan.supabase.annotiations.SupabaseExperimental
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
@@ -17,7 +16,6 @@ import javax.inject.Singleton
 @Module
 object SupabaseModule {
 
-    @OptIn(SupabaseExperimental::class)
     @Provides
     @Singleton
     fun provideSupabaseClient(): SupabaseClient {
@@ -26,12 +24,6 @@ object SupabaseModule {
             supabaseKey = BuildConfig.API_KEY
         ) {
             install(Postgrest)
-//            install(GoTrue) {
-//                flowType = FlowType.PKCE
-//                scheme = "app"
-//                host = "supabase.com"
-//            }
-//            install(Storage)
         }
     }
 
@@ -40,18 +32,4 @@ object SupabaseModule {
     fun provideSupabaseDatabase(client: SupabaseClient): Postgrest {
         return client.postgrest
     }
-//
-//    @Provides
-//    @Singleton
-//    fun provideSupabaseGoTrue(client: SupabaseClient): GoTrue {
-//        return client.gotrue
-//    }
-//
-//
-//    @Provides
-//    @Singleton
-//    fun provideSupabaseStorage(client: SupabaseClient): Storage {
-//        return client.storage
-//    }
-
 }

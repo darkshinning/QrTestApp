@@ -1,4 +1,4 @@
-package com.example.qrwithjetpack.presentation.feature.addproduct.composables
+package com.example.qrwithjetpack.presentation.feature.registration.composables
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoadingScreen(
+fun RegCheckScreen(
     modifier: Modifier = Modifier,
     message: String,
     onCancelSelected: () -> Unit,
@@ -20,7 +20,7 @@ fun LoadingScreen(
         modifier = modifier
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        CircularProgressIndicator(modifier = modifier.size(64.dp))
+        CircularProgressIndicator(modifier = modifier.size(36.dp))
         Text(text = message,
             style = MaterialTheme.typography.titleLarge)
         Spacer(modifier = modifier.weight(1f))
@@ -29,7 +29,7 @@ fun LoadingScreen(
                 .fillMaxWidth(),
             onClick = onCancelSelected
         ) {
-            Text(text = "Cancel")
+            Text(text = "Қайту")
         }
     }
 

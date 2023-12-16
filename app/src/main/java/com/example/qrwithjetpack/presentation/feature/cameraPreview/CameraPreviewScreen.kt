@@ -13,7 +13,6 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,8 +20,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,8 +30,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment.Companion.Bottom
-import androidx.compose.ui.Alignment.Companion.BottomStart
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
@@ -42,27 +41,33 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
+import com.example.qrwithjetpack.RegisteredUser
 import com.example.qrwithjetpack.presentation.feature.photoPreview.PhotoPreviewScreen
+import com.example.qrwithjetpack.presentation.feature.registration.composables.RegistrationFailScreen
+import com.example.qrwithjetpack.util.Util
 import java.io.File
 import java.io.FileOutputStream
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import java.util.concurrent.Executor
 
 
 @Composable
 fun CameraScreen(
-//    viewModel: CameraPreviewViewModel = hiltViewModel(),
     navController: NavController
 ) {
 //    val cameraState: CameraState by viewModel.state.replayCa
 
-    CameraPreviewScreen(
+    if (RegisteredUser.registeredlogin.login == "") {
+        Log.e("NO LOG", RegisteredUser.registeredlogin.login)
+        RegistrationFailScreen(message = "damnNigga", onRetrySelected = { }) {
+        }
+    } else {
+        Log.e("LOG", RegisteredUser.registeredlogin.login)
+        CameraPreviewScreen(
 //        onPhotoCaptured = viewModel::storePhotoInGallery,
 //        lastCapturedPhoto = cameraState.capturedImage,
-        navController = navController
-    )
+            navController = navController
+        )
+    }
 }
 
 @Composable
@@ -95,8 +100,9 @@ fun CameraPreviewScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f)
-                .border(20.dp, Color.Black) //
+//                .border(20.dp, Color.Black) //
         ) {
+
             AndroidView(
                 factory = { context ->
                     PreviewView(context).apply {
@@ -115,41 +121,56 @@ fun CameraPreviewScreen(
                         cameraController.bindToLifecycle(lifecycleOwner)
 
                     }
-                },
-                modifier = Modifier
-                    .fillMaxSize()
+                }
             )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)
+//                    .offset(y = 200.dp)
+            ) {
+                Row (
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ){
+                    Spacer(modifier = Modifier
+                        .height(16.dp)
+                        .weight(10f))
+                    Button(
+                        onClick = { navController.navigate(Util.MENU_ROUTE) },
+                        modifier = Modifier
+                            .weight(1f)
+//                        .padding(50.dp)
+                            .size(50.dp, 30.dp)
+                    ) {
+                        Text(text = "X")
+                    }
+                }
+
+                Spacer(modifier = Modifier
+                    .height(16.dp)
+                    .weight(15f))
+
+                Button(
+                    onClick = {
+                        capturePhoto(context, cameraController, imageCapture)
+                    },
+                    modifier = Modifier
+                        .padding(start = 5.dp)
+                        .weight(1f)
+                        .align(Alignment.CenterHorizontally)
+                ) {
+                    Text(text = "Фото түсіру")
+                }
+
+            }
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Button(
-                onClick = {
-                    capturePhoto(context, cameraController, imageCapture)
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
-                Text(text = "Фото түсіру")
-            }
-            Spacer(modifier = Modifier.width(16.dp))
-            Button(
-                onClick = { navController.navigateUp() },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
-                Text(text = "Камера жабу")
-            }
-        }
+
     }
     if (lastCapturedPhoto != null) {
         PhotoPreviewScreen(
-            modifier = Modifier,
             lastCapturedPhoto = lastCapturedPhoto,
             navController = navController
         )
@@ -187,7 +208,6 @@ private fun capturePhoto(
 }
 
 private fun createOutputFile(context: Context, imageFileName: String): File {
-    val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
 
     val storageDirectory: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
 

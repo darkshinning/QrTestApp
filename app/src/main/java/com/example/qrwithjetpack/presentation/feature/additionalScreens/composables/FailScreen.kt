@@ -1,4 +1,4 @@
-package com.example.qrwithjetpack.presentation.feature.addproduct.composables
+package com.example.qrwithjetpack.presentation.feature.additionalScreens.composables
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons

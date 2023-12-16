@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.qrwithjetpack.domain.model.Product
-import com.example.qrwithjetpack.domain.usecase.CreateProductUseCase
+import com.example.qrwithjetpack.domain.usecase.CreateQrUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
@@ -20,7 +20,7 @@ import kotlin.random.asJavaRandom
 
 @HiltViewModel
 class PhotoPreviewViewModel @Inject constructor(
-    private val createProductUseCase: CreateProductUseCase
+    private val createProductUseCase: CreateQrUseCase
 ) : ViewModel()  {
     fun deleteFile(context: Context) {
         val photo = getPhotoFile(context)
@@ -39,7 +39,7 @@ class PhotoPreviewViewModel @Inject constructor(
         val resized = Bitmap.createScaledBitmap(photoString, 300, 500, false)
         val stringsss = Base64.getEncoder()
         val stream = ByteArrayOutputStream()
-        resized.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        resized.compress(Bitmap.CompressFormat.JPEG, 100, stream)
         val damsn = stringsss.encodeToString(stream.toByteArray())
 
         /**
@@ -49,6 +49,12 @@ class PhotoPreviewViewModel @Inject constructor(
 
         val qrId = Random.asJavaRandom().toString()
 
+        /**
+         * qrId must contain personal information of user sharing a photo and IF it has a human face
+         * then also a biometric information extracted by MLKit.
+         * TODO("after finishing face detection and user registration")
+         */
+
         viewModelScope.launch {
             val qr = Product(
                 qr = damsn,
@@ -56,7 +62,7 @@ class PhotoPreviewViewModel @Inject constructor(
                 qrId = qrId
             )
 
-            createProductUseCase.execute(input = CreateProductUseCase.Input(qr))
+            createProductUseCase.execute(input = CreateQrUseCase.Input(qr))
         }
         return qrId
     }

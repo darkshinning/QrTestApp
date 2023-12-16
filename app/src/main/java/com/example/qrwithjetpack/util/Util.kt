@@ -35,6 +35,8 @@ class Util {
         const val MENU_ROUTE = "main_menu"
         const val QRphoto_ROUTE = "qr_photo"
         const val QRpreview_ROUTE = "qr_preview"
+        const val REGISTRATION_ROUTE = "registration"
+        const val FIRSTLOGIN_ROUTE = "login"
 
         const val qrId = "qr_id"
         val arguments = listOf(navArgument(name = qrId) {

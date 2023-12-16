@@ -8,15 +8,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
+import com.example.qrwithjetpack.presentation.feature.mainMenu.composables.NoPermissionScreen
+import com.example.qrwithjetpack.util.Util
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import com.example.qrwithjetpack.presentation.feature.mainMenu.composables.NoPermissionScreen
-import com.example.qrwithjetpack.util.Util
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -38,7 +36,7 @@ fun MainMenu (
 private fun MainContent(
     hasPermission: Boolean,
     onRequestPermission: () -> Unit,
-    mainMenuVM: MainMenuViewModel = hiltViewModel(),
+//    mainMenuVM: MainMenuViewModel = hiltViewModel(),
     navController: NavController
 ) {
     if (hasPermission) {
@@ -46,7 +44,6 @@ private fun MainContent(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center
         ) {
-            // Add your UI elements here
             Button(
                 onClick = {
                     navController.navigate(Util.QR_ROUTE)

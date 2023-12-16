@@ -1,11 +1,7 @@
 package com.example.qrwithjetpack.presentation.feature.qrPreview
 
-import android.R
-import android.R.attr.height
-import android.R.attr.width
 import android.graphics.Bitmap
 import android.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.common.BitMatrix
@@ -19,10 +15,10 @@ class QrPreviewViewModel @Inject constructor(
 
 ) : ViewModel()  {
 
-    var qrCodeWriter = QRCodeWriter()
-    lateinit var bitMatrix: BitMatrix
-    lateinit var bitmap: Bitmap
-    var width = 1024
+    private var qrCodeWriter = QRCodeWriter()
+    private lateinit var bitMatrix: BitMatrix
+    private lateinit var bitmap: Bitmap
+    private var width = 1024
     var height = 1024
 
     fun createQrfromId(qrId: String): Bitmap {
