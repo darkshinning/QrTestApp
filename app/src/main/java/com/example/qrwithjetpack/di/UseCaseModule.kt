@@ -26,4 +26,7 @@ abstract class UseCaseModule {
     @Binds
     abstract fun bindCreateUserUseCase(impl: CreateUserUseCaseImpl): CreateUserUseCase
 
+    @Binds
+    abstract fun bindLoginUserUseCase(impl: LoginUserUseCaseImpl): LoginUserUseCase
+
 }

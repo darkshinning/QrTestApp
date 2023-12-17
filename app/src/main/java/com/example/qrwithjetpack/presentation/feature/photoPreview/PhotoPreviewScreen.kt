@@ -61,7 +61,7 @@ fun PhotoPreviewScreen(
                 onClick = {
 //                    capturePhoto(context, cameraController, imageCapture)
 
-                    val qrId = photoPreviewViewModel.createQrFromPhoto(capturedPhoto, 1)
+                    val qrId = photoPreviewViewModel.createQrFromPhoto(capturedPhoto)
                     photoPreviewViewModel.deleteFile(context)
 
                     navController.navigate(Util.QRpreview_ROUTE + "/$qrId")

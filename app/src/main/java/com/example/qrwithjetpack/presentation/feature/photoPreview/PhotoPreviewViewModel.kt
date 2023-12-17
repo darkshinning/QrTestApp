@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.qrwithjetpack.RegisteredUser
 import com.example.qrwithjetpack.domain.model.Product
 import com.example.qrwithjetpack.domain.usecase.CreateQrUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,8 +33,8 @@ class PhotoPreviewViewModel @Inject constructor(
         return File(storageDirectory, "temporary_photo.jpg")
     }
 
-    fun createQrFromPhoto(photo: ImageBitmap, user: Int) : String {
-        if (user <= 0) return ""
+    fun createQrFromPhoto(photo: ImageBitmap) : String {
+//        if (user <= 0) return ""
 
         val photoString = photo.asAndroidBitmap()
         val resized = Bitmap.createScaledBitmap(photoString, 300, 500, false)
@@ -58,7 +59,7 @@ class PhotoPreviewViewModel @Inject constructor(
         viewModelScope.launch {
             val qr = Product(
                 qr = damsn,
-                user = user,
+                user = RegisteredUser.registeredlogin.login,
                 qrId = qrId
             )
 

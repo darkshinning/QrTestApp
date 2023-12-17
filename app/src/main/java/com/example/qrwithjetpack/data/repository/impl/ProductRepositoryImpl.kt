@@ -29,7 +29,7 @@ class ProductRepositoryImpl @Inject constructor(
             .select().decodeList()
     }
 
-    override suspend fun getQrsByUser(user: Int): List<ProductDto>? {
+    override suspend fun getQrsByUser(user: String): List<ProductDto>? {
         return postgrest["qrcodeBase"]
             .select {
                 eq("user", user)

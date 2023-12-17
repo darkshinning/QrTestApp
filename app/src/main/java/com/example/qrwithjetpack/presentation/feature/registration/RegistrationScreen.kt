@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.qrwithjetpack.domain.usecase.CreateUserUseCase
+import com.example.qrwithjetpack.domain.usecase.LoginUserUseCase
 import com.example.qrwithjetpack.presentation.feature.registration.composables.RegistrationSuccessScreen
 import com.example.qrwithjetpack.presentation.feature.registration.composables.RegistrationFailScreen
 import com.example.qrwithjetpack.presentation.feature.registration.composables.RegCheckScreen
@@ -40,7 +41,7 @@ fun RegistrationScreen (
     val isLoading =
         viewModel.isLoading.collectAsState(initial = null).value
     if (isLoading == true) {
-        RegCheckScreen(message = "Тіркелу",
+        RegCheckScreen(message = "Кіру",
             onCancelSelected = {
                 navController.navigateUp()
             })
@@ -57,7 +58,7 @@ fun RegistrationScreen (
                     OutlinedTextField(
                         label = {
                             Text(
-                                text = "Логин",
+                                text = "Сіздің логин",
                                 color = MaterialTheme.colorScheme.primary,
                                 style = MaterialTheme.typography.titleMedium
                             )
@@ -75,7 +76,7 @@ fun RegistrationScreen (
                     OutlinedTextField(
                         label = {
                             Text(
-                                text = "Пароль",
+                                text = "Құпия сөз",
                                 color = MaterialTheme.colorScheme.primary,
                                 style = MaterialTheme.typography.titleMedium
                             )
@@ -111,7 +112,7 @@ fun RegistrationScreen (
                 }
             }
 
-            is CreateUserUseCase.Output.Success -> {
+            is LoginUserUseCase.Output.Success -> {
                 RegistrationSuccessScreen(
                     message = "Тіркелді!",
                     onNavigateBack = {
@@ -119,9 +120,9 @@ fun RegistrationScreen (
                     })
             }
 
-            is CreateUserUseCase.Output.Failure -> {
+            is LoginUserUseCase.Output.Failure.WrongPassword -> {
                 RegistrationFailScreen(modifier = modifier.padding(16.dp),
-                    message = "Қате пайда болды. Қайтадан көріңіз!4",
+                    message = "Құпия сөз қате!",
 //                    reason = reasonMessage.value,
                     onRetrySelected = {
                         navController.navigate(Util.REGISTRATION_ROUTE)
@@ -132,6 +133,31 @@ fun RegistrationScreen (
                 )
             }
 
+            is LoginUserUseCase.Output.Failure.Conflict -> {
+                RegistrationFailScreen(modifier = modifier.padding(16.dp),
+                    message = "Белгісіз қате пайда болды...",
+//                    reason = reasonMessage.value,
+                    onRetrySelected = {
+                        navController.navigate(Util.REGISTRATION_ROUTE)
+                    },
+                    onNavigateBack = {
+                        navController.navigate(Util.FIRSTLOGIN_ROUTE)
+                    }
+                )
+            }
+
+            is LoginUserUseCase.Output.Failure -> {
+                RegistrationFailScreen(modifier = modifier.padding(16.dp),
+                    message = "Мұндай қолданушы тіркелмеген!",
+//                    reason = reasonMessage.value,
+                    onRetrySelected = {
+                        navController.navigate(Util.REGISTRATION_ROUTE)
+                    },
+                    onNavigateBack = {
+                        navController.navigate(Util.FIRSTLOGIN_ROUTE)
+                    }
+                )
+            }
         }
     }
 }

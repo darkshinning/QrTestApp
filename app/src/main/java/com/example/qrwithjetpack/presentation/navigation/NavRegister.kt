@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.qrwithjetpack.presentation.feature.cameraPreview.CameraScreen
+import com.example.qrwithjetpack.presentation.feature.loginMenu.FirstRegistrationFormScreen
 import com.example.qrwithjetpack.presentation.feature.loginMenu.LoginMenuScreen
 import com.example.qrwithjetpack.presentation.feature.mainMenu.MainMenu
 import com.example.qrwithjetpack.presentation.feature.photoFromQr.PhotoFromQrScreen
@@ -49,6 +50,11 @@ fun NavGraphBuilder.navRegistration(navController: NavController) {
 
     composable(Util.FIRSTLOGIN_ROUTE) {
         LoginMenuScreen(
+            navController = navController
+        )
+    }
+    composable(Util.FIRSTREGISTRATION_ROUTE) {
+        FirstRegistrationFormScreen(
             navController = navController
         )
     }

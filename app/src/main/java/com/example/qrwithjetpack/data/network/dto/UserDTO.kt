@@ -9,6 +9,9 @@ data class UserDTO(
     @SerialName("id")
     val id: Int? = 0,
 
+    @SerialName("created_at")
+    val createdAt: String? = "",
+
     @SerialName("login")
     val login: String,
 

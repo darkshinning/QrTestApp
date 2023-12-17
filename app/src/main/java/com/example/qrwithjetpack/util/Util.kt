@@ -37,6 +37,7 @@ class Util {
         const val QRpreview_ROUTE = "qr_preview"
         const val REGISTRATION_ROUTE = "registration"
         const val FIRSTLOGIN_ROUTE = "login"
+        const val FIRSTREGISTRATION_ROUTE = "first_registration"
 
         const val qrId = "qr_id"
         val arguments = listOf(navArgument(name = qrId) {

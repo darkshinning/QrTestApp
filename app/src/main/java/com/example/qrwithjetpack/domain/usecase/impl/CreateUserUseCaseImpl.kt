@@ -12,11 +12,16 @@ class CreateUserUseCaseImpl @Inject constructor(
     override suspend fun execute(input: CreateUserUseCase.Input): CreateUserUseCase.Output {
         return try {
             withContext(Dispatchers.IO) {
-                val result = userRepository.createUser(user = input.user)
-                if (result) {
-                    CreateUserUseCase.Output.Success(result = result)
-                } else {
-                    CreateUserUseCase.Output.Failure()
+                when (userRepository.createUser(user = input.user)) {
+                    "Success" -> {
+                        CreateUserUseCase.Output.Success(result = true)
+                    }
+                    "Conflict" -> {
+                        CreateUserUseCase.Output.Failure.Conflict
+                    }
+                    else -> {
+                        CreateUserUseCase.Output.Failure()
+                    }
                 }
             }
         } catch (e: Exception) {

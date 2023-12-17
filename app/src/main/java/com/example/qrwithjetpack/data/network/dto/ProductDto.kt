@@ -10,7 +10,7 @@ data class ProductDto(
     val id: Int? = 0,
 
     @SerialName("user")
-    val user: Int,
+    val user: String,
 
     @SerialName("qr")
     val qr: String,

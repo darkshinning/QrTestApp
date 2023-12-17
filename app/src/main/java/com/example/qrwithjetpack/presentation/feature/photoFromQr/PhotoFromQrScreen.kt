@@ -88,7 +88,7 @@ fun PhotoFromQrScreen(
         val isLoading = photoFromQrViewModel.isLoading.collectAsState(initial = null).value
         if (isLoading == true) {
             LoadingScreen(
-                message = "Processing QR",
+                message = "QR өңделуде...",
                 onCancelSelected = {
                     navController.navigateUp()
                 },
