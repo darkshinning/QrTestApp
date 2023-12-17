@@ -28,7 +28,7 @@ class RegistrationViewModel @Inject constructor(
 
     fun registerUser(login: String, password: String) {
         if (login.isEmpty() || password.isEmpty()) return
-        RegisteredUser.registeredlogin.login = login
+
         viewModelScope.launch {
             _isLoading.value = true
 
@@ -43,6 +43,7 @@ class RegistrationViewModel @Inject constructor(
                     _isLoading.value = false
                     _showSuccessMessage.emit(true)
                     _registerSuccess.value = result
+                    RegisteredUser.registeredlogin.login = login
                 }
 
                 is LoginUserUseCase.Output.Failure.WrongPassword -> {

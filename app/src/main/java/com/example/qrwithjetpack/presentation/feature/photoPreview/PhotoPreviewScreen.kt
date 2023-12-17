@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.qrwithjetpack.presentation.feature.cameraPreview.CameraPreviewViewModel
 import com.example.qrwithjetpack.util.Util
 
 
@@ -29,7 +30,7 @@ import com.example.qrwithjetpack.util.Util
 fun PhotoPreviewScreen(
     navController: NavController,
     lastCapturedPhoto: ImageBitmap? = null,
-    photoPreviewViewModel: PhotoPreviewViewModel = hiltViewModel()
+    cameraPreviewViewModel: CameraPreviewViewModel = hiltViewModel()
 ) {
     val capturedPhoto: ImageBitmap = lastCapturedPhoto!!
     val context = LocalContext.current
@@ -61,8 +62,8 @@ fun PhotoPreviewScreen(
                 onClick = {
 //                    capturePhoto(context, cameraController, imageCapture)
 
-                    val qrId = photoPreviewViewModel.createQrFromPhoto(capturedPhoto)
-                    photoPreviewViewModel.deleteFile(context)
+                    val qrId = cameraPreviewViewModel.createQrFromPhoto(capturedPhoto)
+                    cameraPreviewViewModel.deleteFile(context)
 
                     navController.navigate(Util.QRpreview_ROUTE + "/$qrId")
                 },
@@ -75,7 +76,7 @@ fun PhotoPreviewScreen(
             Spacer(modifier = Modifier.width(16.dp))
             Button(
                 onClick = {
-                    photoPreviewViewModel.deleteFile(context = context)
+                    cameraPreviewViewModel.deleteFile(context = context)
                     navController.navigate(Util.CAMERA_ROUTE)
                           },
                 modifier = Modifier

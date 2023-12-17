@@ -1,9 +1,9 @@
 package com.example.qrwithjetpack.domain.usecase
 
-import com.example.qrwithjetpack.domain.model.Product
+import com.example.qrwithjetpack.domain.model.Qr
 
 interface CreateQrUseCase : UseCase<CreateQrUseCase.Input, CreateQrUseCase.Output> {
-    class Input(val product: Product)
+    class Input(val qr: Qr)
     sealed class Output {
         class Success(val result: Boolean) : Output()
         open class Failure : Output() {

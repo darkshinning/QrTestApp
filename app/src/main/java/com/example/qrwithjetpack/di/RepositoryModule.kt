@@ -1,8 +1,8 @@
 package com.example.qrwithjetpack.di
 
-import com.example.qrwithjetpack.data.repository.ProductRepository
+import com.example.qrwithjetpack.data.repository.QrRepository
 import com.example.qrwithjetpack.data.repository.UserRepository
-import com.example.qrwithjetpack.data.repository.impl.ProductRepositoryImpl
+import com.example.qrwithjetpack.data.repository.impl.QrRepositoryImpl
 import com.example.qrwithjetpack.data.repository.impl.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
@@ -14,7 +14,7 @@ import dagger.hilt.components.SingletonComponent
 abstract class RepositoryModule {
 
     @Binds
-    abstract fun bindProductRepository(impl: ProductRepositoryImpl): ProductRepository
+    abstract fun bindQrRepository(impl: QrRepositoryImpl): QrRepository
 
     @Binds
     abstract fun bindUserRepository(impl: UserRepositoryImpl): UserRepository

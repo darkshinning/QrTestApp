@@ -206,14 +206,15 @@ fun FirstRegistrationFormScreen(
 
             is CreateUserUseCase.Output.Success -> {
                 RegistrationSuccessScreen(
-                    message = "Тіркелді!",
+                    message = "Тіркелдіңіз!",
                     onNavigateBack = {
                         navController.navigate(Util.FIRSTLOGIN_ROUTE)
                     })
             }
+
             is CreateUserUseCase.Output.Failure.Conflict -> {
                 RegistrationFailScreen(modifier = modifier.padding(16.dp),
-                    message = "Мұндай логин уже бар. Тіркеліңіз!",
+                    message = "Мұндай логин уже бар. Басқасын таңдаңыз!",
                     onRetrySelected = {
                         navController.navigate(Util.FIRSTREGISTRATION_ROUTE)
                     },
@@ -224,8 +225,7 @@ fun FirstRegistrationFormScreen(
             }
             is CreateUserUseCase.Output.Failure -> {
                 RegistrationFailScreen(modifier = modifier.padding(16.dp),
-                    message = "Қате пайда болды. Қайтадан көріңіз!",
-//                    reason = reasonMessage.value,
+                    message = "Белгісіз қате пайда болды.",
                     onRetrySelected = {
                         navController.navigate(Util.FIRSTREGISTRATION_ROUTE)
                     },

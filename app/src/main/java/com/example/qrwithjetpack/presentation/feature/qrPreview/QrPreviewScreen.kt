@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -62,26 +63,10 @@ fun QrPreviewScreen(
         }
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-//
                 .background(Color.Black)
-                .padding(16.dp)
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.Center
         ) {
-            Button(
-                onClick = {
-//                    capturePhoto(context, cameraController, imageCapture)
-//
-//                    val qrId = photoPreviewViewModel.createQrFromPhoto(capturedPhoto, 1)
-//                    photoPreviewViewModel.deleteFile(context)
-//
-//                    navController.navigate(Util.QRpreview_ROUTE + "/$qrId")
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            ) {
-                Text(text = "QR-ға айналдыру")
-            }
             Spacer(modifier = Modifier.width(16.dp))
             Button(
                 onClick = {
@@ -89,12 +74,10 @@ fun QrPreviewScreen(
                     navController.navigate(Util.CAMERA_ROUTE)
                 },
                 modifier = Modifier
-                    .fillMaxWidth()
                     .weight(1f)
             ) {
                 Text(text = "Қайта түсіру")
             }
         }
     }
-
 }

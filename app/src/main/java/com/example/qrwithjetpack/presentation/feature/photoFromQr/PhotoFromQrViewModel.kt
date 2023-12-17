@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PhotoFromQrViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val getProductDetailsUseCase: GetQrDetailsUseCase
+    private val getQrDetailsUseCase: GetQrDetailsUseCase
 ) : ViewModel()  {
 
     private val _qr = MutableStateFlow("")
@@ -34,7 +34,7 @@ class PhotoFromQrViewModel @Inject constructor(
     fun getQrFromDatabase(qrId: String) {
         viewModelScope.launch (Dispatchers.Main) {
             _isLoading.value = true
-            val result = getProductDetailsUseCase.execute(
+            val result = getQrDetailsUseCase.execute(
                 GetQrDetailsUseCase.Input(
                     id = qrId
                 )

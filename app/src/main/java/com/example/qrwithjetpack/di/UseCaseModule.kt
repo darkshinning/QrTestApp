@@ -12,16 +12,16 @@ import dagger.hilt.components.SingletonComponent
 abstract class UseCaseModule {
 
     @Binds
-    abstract fun bindGetProductsUseCase(impl: GetQrsUseCaseImpl): GetQrsUseCase
+    abstract fun bindGetQrsUseCase(impl: GetQrsUseCaseImpl): GetQrsUseCase
 
     @Binds
-    abstract fun bindCreateProductUseCase(impl: CreateQrUseCaseImpl): CreateQrUseCase
+    abstract fun bindCreateQrUseCase(impl: CreateQrUseCaseImpl): CreateQrUseCase
 
     @Binds
-    abstract fun bindGetProductDetailsUseCase(impl: GetQrDetailsUseCaseImpl): GetQrDetailsUseCase
+    abstract fun bindGetQrDetailsUseCase(impl: GetQrDetailsUseCaseImpl): GetQrDetailsUseCase
 
     @Binds
-    abstract fun bindDeleteProductUseCase(impl: DeleteQrUseCaseImpl): DeleteQrUseCase
+    abstract fun bindDeleteQrUseCase(impl: DeleteQrUseCaseImpl): DeleteQrUseCase
 
     @Binds
     abstract fun bindCreateUserUseCase(impl: CreateUserUseCaseImpl): CreateUserUseCase

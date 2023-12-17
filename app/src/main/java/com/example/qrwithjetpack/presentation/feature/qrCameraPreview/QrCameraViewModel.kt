@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class QrCameraViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val getProductDetailsUseCase: GetQrDetailsUseCase
+    private val getQrDetailsUseCase: GetQrDetailsUseCase
 ) : ViewModel()  {
 
 //    lateinit var qrString: String
@@ -29,7 +29,7 @@ class QrCameraViewModel @Inject constructor(
 
     private fun getQrFromDatabase(qrId: String) {
         viewModelScope.launch {
-            val result = getProductDetailsUseCase.execute(
+            val result = getQrDetailsUseCase.execute(
                 GetQrDetailsUseCase.Input(
                     id = qrId
                 )

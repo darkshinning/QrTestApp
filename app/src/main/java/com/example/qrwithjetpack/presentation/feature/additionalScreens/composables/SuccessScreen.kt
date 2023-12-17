@@ -38,7 +38,7 @@ fun SuccessScreen(
                 .fillMaxWidth(),
             onClick = onMoreAction
         ) {
-            Text(text = "Add More Product")
+            Text(text = "Add")
         }
         Spacer(modifier = modifier.height(12.dp))
         Spacer(modifier = modifier.height(12.dp))

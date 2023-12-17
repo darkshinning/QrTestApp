@@ -123,7 +123,6 @@ fun RegistrationScreen (
             is LoginUserUseCase.Output.Failure.WrongPassword -> {
                 RegistrationFailScreen(modifier = modifier.padding(16.dp),
                     message = "Құпия сөз қате!",
-//                    reason = reasonMessage.value,
                     onRetrySelected = {
                         navController.navigate(Util.REGISTRATION_ROUTE)
                     },
@@ -136,7 +135,6 @@ fun RegistrationScreen (
             is LoginUserUseCase.Output.Failure.Conflict -> {
                 RegistrationFailScreen(modifier = modifier.padding(16.dp),
                     message = "Белгісіз қате пайда болды...",
-//                    reason = reasonMessage.value,
                     onRetrySelected = {
                         navController.navigate(Util.REGISTRATION_ROUTE)
                     },
@@ -149,7 +147,6 @@ fun RegistrationScreen (
             is LoginUserUseCase.Output.Failure -> {
                 RegistrationFailScreen(modifier = modifier.padding(16.dp),
                     message = "Мұндай қолданушы тіркелмеген!",
-//                    reason = reasonMessage.value,
                     onRetrySelected = {
                         navController.navigate(Util.REGISTRATION_ROUTE)
                     },

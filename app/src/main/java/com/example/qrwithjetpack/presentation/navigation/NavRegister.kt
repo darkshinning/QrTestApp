@@ -76,16 +76,4 @@ fun NavGraphBuilder.navRegistration(navController: NavController) {
             navController = navController, qrId
         )
     }
-//    composable(
-//        route = "${ProductDetailsDestination.route}/{${ProductDetailsDestination.productId}}",
-//        arguments = ProductDetailsDestination.arguments
-//    ) { navBackStackEntry ->
-//        val productId =
-//            navBackStackEntry.arguments?.getString(ProductDetailsDestination.productId)
-//        ProductDetailsScreen(
-//            productId = productId,
-//            navController = navController,
-//        )
-//    }
-
 }

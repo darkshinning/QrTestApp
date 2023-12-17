@@ -34,8 +34,6 @@ class LoginViewModel  @Inject constructor(
     {
         if (firstname.isEmpty() || lastname.isEmpty() || login.isEmpty() || password.isEmpty()) return
 
-        RegisteredUser.registeredlogin.login = login
-
         viewModelScope.launch {
             _isLoading.value = true
 
@@ -51,6 +49,7 @@ class LoginViewModel  @Inject constructor(
                     _isLoading.value = false
                     _showSuccessMessage.emit(true)
                     _registerSuccess.value = result
+                    RegisteredUser.registeredlogin.login = login
                 }
                 is CreateUserUseCase.Output.Failure -> {
                     _isLoading.value = false
