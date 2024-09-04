@@ -10,5 +10,5 @@ interface UserRepository {
 
     suspend fun getUsers() : List<UserDTO>?
 
-    suspend fun updateUser(login: String) : Boolean
+    suspend fun updateUser(login: String, faceModel: String)
 }

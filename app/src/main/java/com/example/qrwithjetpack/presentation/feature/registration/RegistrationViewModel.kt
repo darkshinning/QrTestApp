@@ -1,19 +1,24 @@
 package com.example.qrwithjetpack.presentation.feature.registration
 
+import android.content.Context
+import android.os.Environment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.qrwithjetpack.RegisteredUser
 import com.example.qrwithjetpack.domain.model.User
 import com.example.qrwithjetpack.domain.usecase.CreateUserUseCase
 import com.example.qrwithjetpack.domain.usecase.LoginUserUseCase
+import com.example.qrwithjetpack.faceRecognition.ImageAnalyzer
+import com.example.qrwithjetpack.faceRecognition.model.FaceNetModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class RegistrationViewModel @Inject constructor(
+open class RegistrationViewModel @Inject constructor(
     private val loginUserUseCase: LoginUserUseCase
 ) : ViewModel() {
     private val _registerSuccess = MutableStateFlow<LoginUserUseCase.Output?>(null)
@@ -60,7 +65,19 @@ class RegistrationViewModel @Inject constructor(
                     _isLoading.value = false
                     _registerSuccess.value = result
                 }
+
+                else -> {}
             }
         }
+    }
+
+    open fun getPhotoFile(context: Context): File {
+        val storageDirectory: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File(storageDirectory, "temporary_photo.jpg")
+    }
+
+    open fun deleteFile(context: Context) {
+        val photo = getPhotoFile(context)
+        photo.delete()
     }
 }

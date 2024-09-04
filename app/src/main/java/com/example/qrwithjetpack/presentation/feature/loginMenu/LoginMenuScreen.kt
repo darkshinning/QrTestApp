@@ -164,7 +164,7 @@ fun FirstRegistrationFormScreen(
                     OutlinedTextField(
                         label = {
                             Text(
-                                text = "Пароль",
+                                text = "Құпиясөз",
                                 color = MaterialTheme.colorScheme.primary,
                                 style = MaterialTheme.typography.titleMedium
                             )

@@ -9,7 +9,9 @@ class GetQrDetailsUseCaseImpl @Inject constructor(
     private val qrRepository: QrRepository,
 ) : GetQrDetailsUseCase {
     override suspend fun execute(input: GetQrDetailsUseCase.Input): GetQrDetailsUseCase.Output {
-        val result = qrRepository.getQr(input.id)
+        var qrId = input.id
+        qrId = qrId.replace("/", "%2F")
+        val result = qrRepository.getQr(qrId)
 
         return GetQrDetailsUseCase.Output.Success(
             data = Qr(

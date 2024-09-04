@@ -13,9 +13,7 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository {
     override suspend fun createUser(user: User): String {
         return try {
-            Log.e("MyUser is:", user.login + " is login " + user.password + " is pas " + user.lastname + " is ln " + user.firstname + " is fn")
             val result = getUser(user.login)
-            Log.e("LOGIN EXISTS?", result.toString())
             if (result == null) {
                 val userDto = UserDTO(
                     firstname = user.firstname,
@@ -45,7 +43,11 @@ class UserRepositoryImpl @Inject constructor(
             .select().decodeList()
     }
 
-    override suspend fun updateUser(login: String): Boolean {
-        return true
+    override suspend fun updateUser(login: String, faceModel: String) {
+        postgrest["qrcodeUsers"].update({
+            set("face_model", faceModel.toString())
+        }) {
+            eq("login", login)
+        }
     }
 }

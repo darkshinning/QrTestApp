@@ -1,5 +1,7 @@
 package com.example.qrwithjetpack.presentation.feature.registration
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +20,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -36,10 +41,20 @@ fun RegistrationScreen (
     viewModel: RegistrationViewModel = hiltViewModel(),
     navController: NavController
 ) {
+    val context = LocalContext.current
+
     val registerSuccess =
         viewModel.registerSuccess.collectAsState(initial = null).value
+
     val isLoading =
         viewModel.isLoading.collectAsState(initial = null).value
+
+    val photoFile = viewModel.getPhotoFile(context)
+
+    if (photoFile.exists()) {
+        viewModel.deleteFile(context)
+    }
+
     if (isLoading == true) {
         RegCheckScreen(message = "Кіру",
             onCancelSelected = {
@@ -76,7 +91,7 @@ fun RegistrationScreen (
                     OutlinedTextField(
                         label = {
                             Text(
-                                text = "Құпия сөз",
+                                text = "Құпиясөз",
                                 color = MaterialTheme.colorScheme.primary,
                                 style = MaterialTheme.typography.titleMedium
                             )
@@ -155,6 +170,8 @@ fun RegistrationScreen (
                     }
                 )
             }
+
+            else -> {}
         }
     }
 }

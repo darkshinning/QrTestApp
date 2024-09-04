@@ -50,4 +50,5 @@ class MainActivity : ComponentActivity() {
 
 object RegisteredUser {
     val registeredlogin = User("", "")
+    var initializedFacenet = false
 }

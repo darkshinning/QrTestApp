@@ -3,14 +3,20 @@ package com.example.qrwithjetpack.presentation.feature.cameraPreview
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Environment
 import android.util.Log
+import android.view.Surface.ROTATION_0
+import android.view.Surface.ROTATION_180
+import android.view.Surface.ROTATION_90
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
+import androidx.annotation.RequiresApi
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
+import androidx.camera.core.resolutionselector.ResolutionSelector
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.Arrangement
@@ -61,22 +67,26 @@ fun CameraScreen(
     )
 }
 
+@RequiresApi(Build.VERSION_CODES.S)
 @Composable
 fun CameraPreviewScreen(
-//    onPhotoCaptured: (Bitmap) -> Unit,
-
-//    modifier: Modifier = Modifier,
     navController: NavController,
     cameraPreviewVM: CameraPreviewViewModel = hiltViewModel()
 ) {
+
     val lifecycleOwner = LocalLifecycleOwner.current
+
     val context = LocalContext.current
-//    val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
-//    var imageProxy by remember { mutableStateOf<ImageProxy?>(null) }
+
     val cameraController: LifecycleCameraController = remember { LifecycleCameraController(context) }
+
     var imageCapture: ImageCapture? by remember { mutableStateOf(null) }
+
     val photoFile = cameraPreviewVM.getPhotoFile(context)
+
     var lastCapturedPhoto: ImageBitmap? = null
+
+    lateinit var images: Pair<String, Bitmap>
 
     if (photoFile.exists()) {
         val lastCapturedPhotoInBitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
@@ -84,12 +94,15 @@ fun CameraPreviewScreen(
     }
 
     val isPhotoTaken = cameraPreviewVM.isPhotoTaken.collectAsState(initial = null).value
+
     if (isPhotoTaken == true) {
         PhotoPreviewScreen(
             lastCapturedPhoto = lastCapturedPhoto,
             navController = navController
         )
-    } else {
+    }
+    else
+    {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween
@@ -105,12 +118,12 @@ fun CameraPreviewScreen(
                             layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
                             setBackgroundColor(Color.Black.hashCode())
                             implementationMode = PreviewView.ImplementationMode.COMPATIBLE
-                            scaleType = PreviewView.ScaleType.FILL_START
-
+                            scaleType = PreviewView.ScaleType.FIT_CENTER
 
                         }.also { previewView ->
                             imageCapture = ImageCapture.Builder()
                                 .setCaptureMode(CAPTURE_MODE_MAXIMIZE_QUALITY)
+//                                .setTargetRotation(ROTATION_90)
                                 .build()
 
                             previewView.controller = cameraController
@@ -141,8 +154,7 @@ fun CameraPreviewScreen(
                                       },
                             modifier = Modifier
                                 .weight(1f)
-//                        .padding(50.dp)
-                                .size(50.dp, 30.dp)
+                                .size(50.dp, 50.dp)
                         ) {
                             Text(text = "X")
                         }

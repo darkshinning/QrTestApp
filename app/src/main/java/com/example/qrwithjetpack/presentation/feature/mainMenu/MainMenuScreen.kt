@@ -8,7 +8,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.qrwithjetpack.presentation.feature.cameraPreview.CameraPreviewViewModel
 import com.example.qrwithjetpack.presentation.feature.mainMenu.composables.NoPermissionScreen
 import com.example.qrwithjetpack.util.Util
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -19,7 +22,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MainMenu (
-    navController: NavController
+    navController: NavController,
 ) {
     val cameraPermissionState: PermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
 
@@ -40,6 +43,7 @@ private fun MainContent(
     navController: NavController
 ) {
     if (hasPermission) {
+
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center

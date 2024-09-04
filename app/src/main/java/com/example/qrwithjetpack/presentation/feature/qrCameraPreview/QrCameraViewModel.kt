@@ -22,7 +22,7 @@ class QrCameraViewModel @Inject constructor(
 
     init {
         val qrId = savedStateHandle.get<String>("qr_id")
-        qrId?.let {
+        qrId?.let { 
             getQrFromDatabase(qrId = it)
         }
     }
@@ -37,16 +37,12 @@ class QrCameraViewModel @Inject constructor(
             when (result) {
                 is GetQrDetailsUseCase.Output.Success -> {
                     _qr.emit(result.data.qr)
-//                    Log.e("ERROR", _qr.toString())
-//                    qrString = result.data.qr
                 }
                 is GetQrDetailsUseCase.Output.Failure -> {
 
                 }
             }
         }
-//        Log.e("ERROR", "Check the qr: " + qrString[0].toString())
-//        return qrString
     }
 
 //

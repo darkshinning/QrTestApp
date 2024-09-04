@@ -36,10 +36,7 @@ fun QrPreviewScreen(
     qrPreviewViewModel: QrPreviewViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-//    val qrView: ImageView = ImageView(context)
-//    qrView.maxHeight = 150
-//    qrView.maxWidth = 150
-//    qrView.scaleType = ImageView.ScaleType.CENTER
+
     val bitmap = qrPreviewViewModel.createQrfromId(qrId).asImageBitmap()
 
     Column(
@@ -50,14 +47,12 @@ fun QrPreviewScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .paddingFromBaseline(200.dp)
-//                .weight(1f)
-//                .size(width = 1024.dp, height = 1024.dp)
-                .border(20.dp, Color.Black)
+                .border(5.dp, Color.Black)
                 .background(Color.Black)
         ) {
             Image(
                 bitmap = bitmap,
-                contentDescription = "Last captured photo",
+                contentDescription = "Соңғы түсірілген сурет",
                 contentScale = ContentScale.Crop
             )
         }

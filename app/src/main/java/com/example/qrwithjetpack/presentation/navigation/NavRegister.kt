@@ -69,9 +69,10 @@ fun NavGraphBuilder.navRegistration(navController: NavController) {
         )
     }
 
-    composable(Util.QRpreview_ROUTE + "/{qrId}") { navBackStack ->
+    composable(Util.QRpreview_ROUTE + "/{${Util.qrId}}",
+        arguments = Util.arguments) { navBackStack ->
 
-        val qrId = navBackStack.arguments?.getString("qrId").toString()
+        val qrId = navBackStack.arguments?.getString(Util.qrId).toString()
         QrPreviewScreen(
             navController = navController, qrId
         )

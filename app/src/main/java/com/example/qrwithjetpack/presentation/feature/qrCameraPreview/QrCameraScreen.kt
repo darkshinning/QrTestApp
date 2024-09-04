@@ -2,6 +2,7 @@ package com.example.qrwithjetpack.presentation.feature.qrCameraPreview
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -39,16 +40,24 @@ fun QrCameraPreview(
             formats = CodeScanner.ALL_FORMATS
             autoFocusMode = AutoFocusMode.SAFE
             scanMode = ScanMode.SINGLE
-            isAutoFocusEnabled = true
-            isFlashEnabled = false
+//            isAutoFocusEnabled = true
+//            isFlashEnabled = false
 
-            // Callbacks
             decodeCallback = DecodeCallback {
-                val scannedData = it.text
-                Log.e("ERROR", scannedData)
-                MainScope().launch {
+                var scannedData = it.text
+
+                if (scannedData.length < 100) {
+                    Log.e("Scanned Data", scannedData)
+                    MainScope().launch {
+                        navController.navigate(Util.QR_ROUTE)
+                    }
+                } else {
+                    scannedData = scannedData.replace("/", "%2F")
+                    Log.e("Scanned Data After", scannedData)
+                    MainScope().launch {
 //                    val bt = qrCameraViewModel.openTheQr(scannedData)
-                    navController.navigate(Util.QRphoto_ROUTE + "/$scannedData")
+                        navController.navigate(Util.QRphoto_ROUTE + "/$scannedData")
+                    }
                 }
             }
             errorCallback = ErrorCallback {
@@ -57,6 +66,7 @@ fun QrCameraPreview(
     }
 
     DisposableEffect(codeScanner) {
+
         codeScanner.startPreview()
 
         onDispose {
@@ -69,16 +79,10 @@ fun QrCameraPreview(
             .fillMaxSize()
             .border(20.dp, Color.Black) //
     ) {
-        AndroidView(factory = { scannerView }) {
+        AndroidView(
+            factory = { scannerView }
+        ) {
 
         }
-
     }
 }
-
-
-//@Preview
-//@Composable
-//fun Preview_QR() {
-//    QrCameraPreview()
-//}

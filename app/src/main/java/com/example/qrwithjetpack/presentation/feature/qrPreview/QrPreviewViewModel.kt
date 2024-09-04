@@ -2,6 +2,7 @@ package com.example.qrwithjetpack.presentation.feature.qrPreview
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.common.BitMatrix
@@ -20,8 +21,9 @@ class QrPreviewViewModel @Inject constructor(
     private lateinit var bitmap: Bitmap
     private var width = 1024
     var height = 1024
-
+    private var timeForQRgeneration : Long = 0L
     fun createQrfromId(qrId: String): Bitmap {
+        timeForQRgeneration = System.nanoTime()
         bitMatrix = qrCodeWriter.encode(qrId, BarcodeFormat.QR_CODE, width, height)
         bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
         for (x in 0 until width) {
@@ -32,6 +34,9 @@ class QrPreviewViewModel @Inject constructor(
                 )
             }
         }
+        Log.i("Qr Generation Time",
+            (System.nanoTime() - timeForQRgeneration).toString() + " наносекунд"
+        )
         return bitmap
     }
 
